@@ -58,7 +58,7 @@ export default function MenuCategories() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="text-lg">
-            All Categories
+            All Products
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="lg:flex w-[400px] gap-3 p-4 md:w-[800px] sm:grid-cols-2 md:grid-cols-2 lg:w-[80rem]">

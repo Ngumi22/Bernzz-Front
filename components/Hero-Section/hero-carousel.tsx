@@ -47,7 +47,7 @@ export default function HeroCarousel() {
       <Carousel
         plugins={[
           Autoplay({
-            delay: 4000,
+            delay: 5000,
           }),
         ]}
         setApi={setApi}
@@ -55,12 +55,12 @@ export default function HeroCarousel() {
           align: "start",
           loop: true,
         }}
-        className="w-full overflow-hidden relative rounded-md">
-        <CarouselContent className="">
+        className="w-full overflow-hidden relative">
+        <CarouselContent>
           {slides.map((slide) => (
             <CarouselItem key={slide.name} className="w-full overflow-hidden">
               <Card className="h-96">
-                <CardContent className="h-full md:items-center flex justify-around items-center p-0 bg-yellow-500 shadow-lg rounded-md">
+                <CardContent className="h-full md:items-center flex justify-around items-center p-2 bg-yellow-500">
                   <div className="p-6">
                     <p className="font-semibold mb-2 text-3xl">
                       SONY-WH-1000XM4

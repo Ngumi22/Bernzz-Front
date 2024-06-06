@@ -1,18 +1,19 @@
 export interface Product {
   id: number;
+  sku: string;
   name: string;
   description: string;
-  brand: string;
-  price: number;
   category: string;
-  image: string;
-  discountPercentage: number;
-  new: boolean;
-  bestSeller: boolean;
-  rating: number;
-  stock: number;
-  use: string;
-  thumbnails: string;
+  status: string;
+  price: number;
+  discount: number;
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+  images: {
+    main: string | null;
+    thumbnails: string[];
+  };
 }
 export interface ItemListProps {
   defaultCategory: string | null;
@@ -73,24 +74,4 @@ export interface wishState {
   wishItems: wishItem[];
   wishTotalQuantity: number;
   wishTotalAmount: number;
-}
-
-export interface FileData {
-  main_image: File;
-  thumbnail1: File;
-  thumbnail2: File;
-  thumbnail3: File;
-  thumbnail4: File;
-  thumbnail5: File;
-  fields: {
-    sku: string;
-    name: string;
-    description: string;
-    category: string;
-    status: "Archived" | "Active" | "Draft";
-    price: number;
-    discount: number;
-    quantity: number;
-    brand: string;
-  };
 }
