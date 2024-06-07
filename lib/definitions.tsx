@@ -75,3 +75,8 @@ export interface wishState {
   wishTotalQuantity: number;
   wishTotalAmount: number;
 }
+
+export interface Category {
+  id: number;
+  name: string;
+}
