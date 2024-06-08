@@ -18,6 +18,7 @@ export interface Product {
 export interface ItemListProps {
   defaultCategory: string | null;
 }
+
 export interface Slide {
   name: string;
   imgSrc: string;
@@ -48,6 +49,15 @@ export interface CartItem {
   rating: number; // Rating of the product
   stock: number; // Stock quantity of the product
   cartQuantity: number; // Quantity of the product in the cart
+
+  discount: number;
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+  images: {
+    main: string | null;
+    thumbnails: string[];
+  };
 }
 
 export interface CartState {
