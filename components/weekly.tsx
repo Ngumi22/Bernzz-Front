@@ -13,7 +13,7 @@ interface ProductListProps {
   product: Product;
 }
 
-export default function ProductList({ product }: ProductListProps) {
+export default function ProductList() {
   const { data: allproducts, error, isLoading } = useGetAllProductsQuery("");
 
   const dispatch = useDispatch();
@@ -42,9 +42,11 @@ export default function ProductList({ product }: ProductListProps) {
   }
 
   return (
-    <section className="container flex gap-8 my-16">
+    <section className="container flex flex-wrap gap-8 my-16 w-full">
       {allproducts.map((product: Product) => (
-        <div className="relative group/item bg-white shadow-md h-full max-w-sm dark:bg-gray-800 dark:border-gray-700 w-[15rem]">
+        <div
+          key={product.id}
+          className="relative group/item bg-white shadow-md h-full max-w-sm dark:bg-gray-800 dark:border-gray-700 w-[15rem]">
           <div key={product.id} className="">
             <Image
               className="rounded-t-lg p-4"

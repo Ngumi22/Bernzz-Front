@@ -28,7 +28,7 @@ export default function CategoryList() {
   return (
     <div>
       {allcategories.map((category: Category) => (
-        <p>{category.name}</p>
+        <p key={category.id}>{category.name}</p>
       ))}
     </div>
   );
