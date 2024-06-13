@@ -24,9 +24,8 @@ export default function CategoryList() {
     return <p>No categories available</p>;
   }
 
-  console.log(allcategories);
   return (
-    <div>
+    <div className="md:flex justify-center items-center gap-8 w-full">
       {allcategories.map((category: Category) => (
         <p key={category.id}>{category.name}</p>
       ))}

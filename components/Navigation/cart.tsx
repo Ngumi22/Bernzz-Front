@@ -61,7 +61,7 @@ export default function Cart() {
             <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
           </svg>
 
-          <span className="absolute top-0 right-0 inline-flex items-center rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+          <span className="absolute top-0 right-0 inline-flex items-center rounded-full bg-red-700 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-gray-500/10">
             {cart.cartTotalQuantity}
           </span>
         </Button>
@@ -84,7 +84,7 @@ export default function Cart() {
                   className="bi bi-arrow-left"
                   viewBox="0 0 16 16">
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
                   />
                 </svg>

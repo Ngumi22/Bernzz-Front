@@ -13,6 +13,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import CategoryList from "../categories";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -61,15 +62,8 @@ export default function MenuCategories() {
             All Products
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="lg:flex w-[400px] gap-3 p-4 md:w-[800px] sm:grid-cols-2 md:grid-cols-2 lg:w-[80rem]">
-              {components.map((component) => (
-                <li
-                  key={component.title}
-                  className="w-[400px] gap-3 p-4 md:w-[800px] sm:grid-cols-2 md:grid-cols-2 lg:w-[80rem]">
-                  <p className="font-semibold text-lg">{component.title}</p>
-                  {component.title}
-                </li>
-              ))}
+            <ul className="lg:flex w-[250px] sm:w-[300px] gap-3 p-4 md:w-[800px] sm:grid-cols-2 md:grid-cols-2 lg:w-[80rem]">
+              <CategoryList />
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

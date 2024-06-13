@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Menu, Search } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -7,6 +7,8 @@ import Cart from "@/components/Navigation/cart";
 import WishList from "./wishlist";
 import Compare from "./compare";
 import MegaMenu from "../Mega-Menu/mega-menu";
+
+import Search from "../search";
 
 export default function MainNav() {
   return (
@@ -61,20 +63,14 @@ export default function MainNav() {
             </nav>
           </SheetContent>
         </Sheet>
-
         <div>
           <form className="ml-auto flex-1 sm:flex-initial">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="pl-8 sm:w-[22rem] md:w-[26rem] lg:w-[30rem]"
-              />
+              <Search placeholder={"Search..."} />
             </div>
           </form>
         </div>
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-1 md:gap-4">
           <Compare />
           <WishList />
           <Cart />
