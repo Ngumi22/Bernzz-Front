@@ -4,6 +4,7 @@ import { useGetAllCategoriesQuery } from "@/lib/productsApi";
 import Image from "next/image";
 
 import { Category, Product } from "@/lib/definitions";
+import { Separator } from "./ui/separator";
 
 export default function CategoryList() {
   const {
@@ -25,10 +26,22 @@ export default function CategoryList() {
   }
 
   return (
-    <div className="md:flex justify-center items-center gap-8 w-full">
-      {allcategories.map((category: Category) => (
-        <p key={category.id}>{category.name}</p>
-      ))}
+    <div className="flex gap-2 items-center">
+      <div>
+        {allcategories.map((category: Category) => (
+          <div>
+            <p key={category.id}>{category.name}</p>
+          </div>
+        ))}
+      </div>
+      <Separator orientation="vertical" />
+      <div>
+        <p>Peter</p>
+        <p>Peter</p>
+        <p>Peter</p>
+        <p>Peter</p>
+        <p>Peter</p>
+      </div>
     </div>
   );
 }

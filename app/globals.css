@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Montserrat", Helvetica, arial, sans-serif;
+}
+
+nav {
+  background-color: #21476b;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

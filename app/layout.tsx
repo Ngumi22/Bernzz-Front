@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Inter,
-  Noto_Sans,
-  Montserrat,
-  Lato,
-  Roboto_Condensed,
-} from "next/font/google";
+import { Inter, Noto_Sans, Montserrat, Lato, Roboto } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/lib/provider";
 import MainNav from "@/components/Navigation/main-nav";
@@ -13,7 +7,7 @@ import Footer from "@/components/Navigation/footer";
 
 const inter = Inter({ subsets: ["latin"], weight: "500" });
 const sans = Lato({ subsets: ["latin"], weight: "400" });
-const roboto_Condensed = Roboto_Condensed({
+const roboto = Roboto({
   subsets: ["latin"],
   weight: "400",
 });
@@ -30,11 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-family">
         <StoreProvider>
           <MainNav />
-          {children}
-          {/* <Footer /> */}
+          <section className="py-52">{children}</section>
+
+          <Footer />
         </StoreProvider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -12,10 +12,11 @@ const NavigationMenu = React.forwardRef<
   <NavigationMenuPrimitive.Root
     ref={ref}
     className={cn(
-      "relative z-10 flex max-w-max flex-1 items-center justify-center",
+      "relative z-10 flex w-full md:max-w-[16rem] flex-1 justify-between",
       className
     )}
-    {...props}>
+    {...props}
+  >
     {children}
     <NavigationMenuViewport />
   </NavigationMenuPrimitive.Root>
@@ -28,10 +29,7 @@ const NavigationMenuList = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <NavigationMenuPrimitive.List
     ref={ref}
-    className={cn(
-      "group flex flex-1 list-none items-center justify-center space-x-1",
-      className
-    )}
+    className={cn("", className)}
     {...props}
   />
 ));
@@ -40,7 +38,7 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center text-white text-sm font-medium"
+  "group flex justify-between items-center w-full md:w-[16rem] h-auto py-3 text-white px-2 font-medium"
 );
 
 const NavigationMenuTrigger = React.forwardRef<
@@ -50,10 +48,11 @@ const NavigationMenuTrigger = React.forwardRef<
   <NavigationMenuPrimitive.Trigger
     ref={ref}
     className={cn(navigationMenuTriggerStyle(), "group", className)}
-    {...props}>
+    {...props}
+  >
     {children}{" "}
-    <ChevronDown
-      className="relative top-[3px] ml-2 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
+    <Menu
+      className="relative ml-2 h-6 w-6 transition duration-200 group-data-[state=open]:rotate-180"
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
@@ -105,7 +104,8 @@ const NavigationMenuIndicator = React.forwardRef<
       "top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
       className
     )}
-    {...props}>
+    {...props}
+  >
     <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
   </NavigationMenuPrimitive.Indicator>
 ));
