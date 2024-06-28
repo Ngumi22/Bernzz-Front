@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 export default function Compare() {
   const compare = useAppSelector((state) => state.cart);
   return (

@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import { Inter, Noto_Sans, Montserrat, Lato, Roboto } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/lib/provider";
-import MainNav from "@/components/Navigation/main-nav";
 import Footer from "@/components/Navigation/footer";
+import { Navbar } from "@/components/Navigation/Navbar";
 
 const inter = Inter({ subsets: ["latin"], weight: "500" });
 const sans = Lato({ subsets: ["latin"], weight: "400" });
 const roboto = Roboto({
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const mont = Montserrat({
   subsets: ["latin"],
   weight: "400",
 });
@@ -24,10 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-family">
+      <body className={roboto.className}>
         <StoreProvider>
-          <MainNav />
-          <section className="py-52">{children}</section>
+          <Navbar />
+          {children}
 
           <Footer />
         </StoreProvider>
