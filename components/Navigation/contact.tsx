@@ -2,12 +2,12 @@ import { PhoneCall } from "lucide-react";
 
 export default function Contact() {
   return (
-    <div className="hidden md:flex items-center space-x-4 rounded-none">
+    <div className="hidden lg:flex items-center space-x-2 rounded-none">
       <div className="border-2 border-[#feda00] rounded-full p-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -22,7 +22,7 @@ export default function Contact() {
       </div>
       <div className="text-white text-start text-sm">
         <p>Contact Us</p>
-        <p className="">0713000000</p>
+        <p>0713000000</p>
       </div>
     </div>
   );

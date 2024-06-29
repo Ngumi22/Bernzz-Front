@@ -46,12 +46,12 @@ export default function Cart() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center md:space-x-4 space-x-2 rounded-none">
+          className="flex items-center space-x-3 rounded-none">
           <div className="border-2 border-[#feda00] rounded-full p-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -65,8 +65,8 @@ export default function Cart() {
             </svg>
           </div>
 
-          <div className="text-white text-start hidden md:flex flex-col">
-            <p className="">Cart</p>
+          <div className="text-white text-start text-sm flex flex-col">
+            <p className="">Shopping Cart</p>
             <p className="">{cart.cartTotalQuantity} Products</p>
           </div>
         </Button>
