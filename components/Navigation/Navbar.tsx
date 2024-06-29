@@ -23,7 +23,6 @@ import {
 export function Navbar() {
   return (
     <section className="sticky top-0 z-50">
-      <TopNav />
       <header className="bg-black grid grid-flow-row md:h-32 py-2 md:grid-flow-col place-content-evenlyr content-center gap-2">
         <Logo />
         <form className="flex justify-center items-center rounded border m-auto w-[98%]">

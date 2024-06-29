@@ -1,5 +1,3 @@
-import { PhoneCall } from "lucide-react";
-
 export default function Contact() {
   return (
     <div className="hidden lg:flex items-center space-x-2 rounded-none">

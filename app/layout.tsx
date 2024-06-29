@@ -4,6 +4,8 @@ import "./globals.css";
 import StoreProvider from "@/lib/provider";
 import Footer from "@/components/Navigation/footer";
 import { Navbar } from "@/components/Navigation/Navbar";
+import TopNav from "@/components/Navigation/TopNav";
+import MegaMenu from "@/components/Mega-Menu/mega-menu";
 
 const inter = Inter({ subsets: ["latin"], weight: "500" });
 const sans = Lato({ subsets: ["latin"], weight: "400" });
@@ -31,7 +33,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <StoreProvider>
+          <TopNav />
           <Navbar />
+          <MegaMenu />
           {children}
 
           <Footer />
