@@ -9,7 +9,21 @@ export const productsApi = createApi({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
       // get all products, optionally filtered by various query parameters
-      query: ({ category, name, brand, discount, minPrice, maxPrice }) => {
+      query: ({
+        category,
+        name,
+        brand,
+        discount,
+        minPrice,
+        maxPrice,
+      }: {
+        category?: string;
+        name?: string;
+        brand?: string;
+        discount?: string;
+        minPrice?: string;
+        maxPrice?: string;
+      }) => {
         const params = new URLSearchParams();
         if (category) params.append("category", category);
         if (name) params.append("name", name);
@@ -23,7 +37,7 @@ export const productsApi = createApi({
     }),
 
     getProductById: builder.query({
-      query: (id) => `products/${id}`, // get product by id
+      query: (id: string) => `products/${id}`, // get product by id
       keepUnusedDataFor: 5,
     }),
 
@@ -32,20 +46,16 @@ export const productsApi = createApi({
       keepUnusedDataFor: 5,
     }),
 
-    getProductByName: builder.query({
-      query: (name) => `products?name=${name}`, // get product by name
+    getBrandsByCategory: builder.query({
+      query: (category: string) => `brands?category=${category}`, // get brands by category
       keepUnusedDataFor: 5,
     }),
   }),
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const {
   useGetAllProductsQuery,
   useGetProductByIdQuery,
   useGetAllCategoriesQuery,
-  useGetProductByNameQuery,
+  useGetBrandsByCategoryQuery,
 } = productsApi;
-
-export type Category = string;
