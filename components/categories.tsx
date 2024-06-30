@@ -26,16 +26,16 @@ export default function CategoryList() {
   }
 
   return (
-    <div className="flex gap-2 items-center">
-      <div>
+    <div className="flex w-full gap-2 items-center px-6">
+      <ul className="w-1/4">
         {allcategories.map((category: Category) => (
-          <div>
-            <p key={category.id}>{category.name}</p>
-          </div>
+          <li key={category.id}>
+            <a>{category.name}</a>
+          </li>
         ))}
-      </div>
+      </ul>
       <Separator orientation="vertical" />
-      <div>
+      <div className="w-3/4">
         <p>Peter</p>
         <p>Peter</p>
         <p>Peter</p>
