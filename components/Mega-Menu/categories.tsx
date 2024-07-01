@@ -1,35 +1,40 @@
 "use client";
 
-import * as React from "react";
-import Link from "next/link";
-
-import { cn } from "@/lib/utils";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import CategoryList from "../categories";
-
 export default function MenuCategories() {
   return (
-    <NavigationMenu className="md:bg-black bg-[#21476b] hover:bg-[#feda00] md:my-2 md:rounded-md">
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-lg">
-            All Categories
-          </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="lg:flex w-screen gap-3 py-4 md:w-screen sm:grid-cols-2 md:grid-cols-2">
-              <CategoryList />
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <div className="hidden md:bg-black bg-[#21476b] hover:bg-[#feda00] md:flex justify-between items-center gap-2 p-2 text-sm space-x-2 text-white hover:text-black">
+      <span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="lucide lucide-align-justify ">
+          <line x1="3" x2="21" y1="6" y2="6" />
+          <line x1="3" x2="21" y1="12" y2="12" />
+          <line x1="3" x2="21" y1="18" y2="18" />
+        </svg>
+      </span>
+      <p className=" uppercase">Shop By Category</p>
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="lucide lucide-chevron-down ">
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </div>
   );
 }

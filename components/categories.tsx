@@ -58,13 +58,11 @@ export default function CategoryList() {
             onClick={() => {
               setSelectedCategory(category.name);
               setSelectedBrand(null);
-            }}
-          >
+            }}>
             <a
               className={`cursor-pointer ${
                 selectedCategory === category.name ? "font-bold" : ""
-              }`}
-            >
+              }`}>
               {category.name}
             </a>
           </li>
@@ -85,8 +83,7 @@ export default function CategoryList() {
                     <a
                       className={`cursor-pointer ${
                         selectedBrand === brand ? "font-bold" : ""
-                      }`}
-                    >
+                      }`}>
                       {brand}
                     </a>
                   </li>
