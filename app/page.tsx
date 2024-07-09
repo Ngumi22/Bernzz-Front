@@ -14,6 +14,8 @@ export default function Home() {
       <Hero />
       {/* <Week /> */}
       <CategorySection />
+
+      {/* <Card product={undefined} /> */}
     </main>
   );
 }

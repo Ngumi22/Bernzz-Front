@@ -1,11 +1,11 @@
 // import React from "react";
 // import { useDispatch } from "react-redux";
 // import { addToCart } from "@/lib/slices/cartSlice";
-// import { CartItem, Product } from "@/lib/definitions";
-// import Image from "next/image";
 // import { addToWish } from "@/lib/slices/wishSlice";
-
 // import { IoIosExpand } from "react-icons/io";
+// import Image from "next/image";
+// import { Product } from "@/lib/definitions";
+
 // interface CardProps {
 //   product: Product;
 // }
@@ -14,21 +14,32 @@
 //   const dispatch = useDispatch();
 
 //   const handleAddToCart = () => {
-//     // Create a CartItem from the Product
-//     const cartItem: CartItem = {
+//     const cartItem = {
 //       ...product,
-//       cartQuantity: 1, // Assuming an initial quantity
+//       cartQuantity: 1,
 //     };
 //     dispatch(addToCart(cartItem));
 //   };
 
 //   const handleAddToWish = () => {
-//     // Create a wishItem from the Product // Renamed variable to avoid conflict
 //     const wishItem = {
 //       ...product,
-//       wishQuantity: 1, // Assuming an initial quantity
+//       wishQuantity: 1,
 //     };
 //     dispatch(addToWish(wishItem));
+//   };
+
+//   const handleCompare = () => {
+//     // Implement compare functionality
+//   };
+
+//   const handleQuickView = () => {
+//     // Implement quick view functionality (e.g., open a modal)
+//   };
+
+//   const handleWhatsapp = () => {
+//     const url = `https://wa.me/?text=I%20am%20interested%20in%20the%20product:%20${product.name}%20(${product.id})`;
+//     window.open(url, "_blank");
 //   };
 
 //   return (
@@ -36,7 +47,7 @@
 //       <div key={product.id} className="">
 //         <Image
 //           className="rounded-t-lg p-4"
-//           src={product.image}
+//           src={`data:image/jpeg;base64,${product.images.main}`}
 //           alt={product.name}
 //           loading="lazy"
 //           width={500}
@@ -46,7 +57,7 @@
 //         />
 
 //         <div className="px-5 pb-2">
-//           <div className="flex items-center my-1">
+//           {/* <div className="flex items-center my-1">
 //             {[...Array(5)].map((_, index) => (
 //               <svg
 //                 key={index}
@@ -61,7 +72,7 @@
 //                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
 //               </svg>
 //             ))}
-//           </div>
+//           </div> */}
 //           <h3 className="text-gray-900 font-semibold text-sm tracking-tight dark:text-white mb-2">
 //             {product.description}
 //           </h3>
@@ -98,7 +109,9 @@
 //             Add to Wishlist
 //           </p>
 //         </button>
-//         <a className="bg-yellow-400 p-1 relative group/icon" href="">
+//         <button
+//           className="bg-yellow-400 p-1 relative group/icon"
+//           onClick={handleCompare}>
 //           <svg
 //             xmlns="http://www.w3.org/2000/svg"
 //             height="22"
@@ -109,10 +122,10 @@
 //           <p className="absolute invisible group-hover/icon:visible right-8 top-2 bottom-0 text-xs 2xl:text-md text-center w-36 my-auto text-black font-semibold">
 //             Compare Products
 //           </p>
-//         </a>
-//         <a
+//         </button>
+//         <button
 //           className="bg-yellow-400 p-1 relative group/icon"
-//           href="https://web.whatsapp.com">
+//           onClick={handleWhatsapp}>
 //           <svg
 //             xmlns="http://www.w3.org/2000/svg"
 //             width="22"
@@ -123,7 +136,7 @@
 //           <p className="absolute invisible group-hover/icon:visible right-9 top-2 bottom-0 text-xs 2xl:text-md text-center w-36 my-auto text-black font-semibold">
 //             Order on WhatsApp
 //           </p>
-//         </a>
+//         </button>
 //       </div>
 
 //       <button
