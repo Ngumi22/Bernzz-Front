@@ -2,10 +2,9 @@
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Hero from "@/components/Hero-Section/hero";
-import Week from "@/components/weekly";
 import CategorySection from "@/components/category-section";
-import MegaMenu from "@/components/Mega-Menu/mega-menu";
-import TopNav from "@/components/Navigation/TopNav";
+import ShopByBrand from "@/components/shop-by-brand";
+import { DiscountedProductsTabs } from "@/components/shop-by-discount";
 
 export default function Home() {
   return (
@@ -14,8 +13,8 @@ export default function Home() {
       <Hero />
       {/* <Week /> */}
       <CategorySection />
-
-      {/* <Card product={undefined} /> */}
+      <ShopByBrand />
+      <DiscountedProductsTabs />
     </main>
   );
 }
