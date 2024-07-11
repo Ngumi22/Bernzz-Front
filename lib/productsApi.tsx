@@ -39,10 +39,10 @@ export const productsApi = createApi({
 
     getProductsByDiscount: builder.query<
       Product[],
-      { minDiscount: number; maxDiscount: number }
+      { minDiscount: number; maxDiscount: number; limit: number }
     >({
-      query: ({ minDiscount, maxDiscount }) =>
-        `products?minDiscount=${minDiscount}&maxDiscount=${maxDiscount}`,
+      query: ({ minDiscount, maxDiscount, limit }) =>
+        `products?minDiscount=${minDiscount}&maxDiscount=${maxDiscount}&limit=${limit}`,
       keepUnusedDataFor: 5,
     }),
 

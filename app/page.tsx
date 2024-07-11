@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import Hero from "@/components/Hero-Section/hero";
 import CategorySection from "@/components/category-section";
 import ShopByBrand from "@/components/shop-by-brand";
-import { DiscountedProductsTabs } from "@/components/shop-by-discount";
+import DiscountedProducts from "@/components/shop-by-discount";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       {/* <Week /> */}
       <CategorySection />
       <ShopByBrand />
-      <DiscountedProductsTabs />
+      <DiscountedProducts />
     </main>
   );
 }
