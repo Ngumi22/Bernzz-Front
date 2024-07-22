@@ -106,7 +106,7 @@ export default function Cart() {
                   <div>
                     <Image
                       className="h-20"
-                      src={cartItem.image}
+                      src={`data:image/jpeg;base64,${cartItem.images.main}`}
                       alt={cartItem.name}
                       height={100}
                       width={100}

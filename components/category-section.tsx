@@ -9,7 +9,7 @@ import { SkeletonCard } from "@/components/skeleton";
 
 export default function CategorySection() {
   const {
-    data: allcategories,
+    data: allCategories,
     error,
     isLoading,
   } = useGetAllCategoriesQuery("");
@@ -22,12 +22,11 @@ export default function CategorySection() {
       ) : error ? (
         <span className="sr-only">No Categories Found</span>
       ) : (
-        <ul className="mx-1 flex flex-row overflow-x-auto md:flex-wrap md:justify-center items-center gap-4 md:gap-6 my-2 md:my-8">
-          {allcategories.map((category: Category) => (
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+          {allCategories.map((category: Category) => (
             <li
               key={category.id}
-              className="p-1 md:p-5 lg:p-8 lg:basis-64 flex-grow text-center shadow-lg bg-gray-400"
-            >
+              className="p-1 md:p-5 lg:p-8 lg:basis-64 flex-grow text-center shadow-lg bg-gray-400">
               <Link href={`/shop-by-category/${category.name}`}>
                 {category.name}
               </Link>
