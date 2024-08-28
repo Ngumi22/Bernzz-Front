@@ -4,14 +4,11 @@ import HeroCarousel from "./hero-carousel";
 
 export default function Hero() {
   return (
-    <section className="lg:flex justify-between items-center gap-2">
-      <div className="w-full lg:w-[20%] hidden lg:block">
-        <CategorySection />
-      </div>
-      <div className="w-full lg:w-[55%]">
+    <section className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
+      <div className="col-span-2">
         <HeroCarousel />
       </div>
-      <div className="w-full lg:w-[30%] hidden lg:block">
+      <div className="col-span-1">
         <HeroBanners />
       </div>
     </section>

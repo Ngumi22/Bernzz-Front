@@ -29,7 +29,7 @@ export default function CategorySection() {
     data: brands,
     isLoading: brandsLoading,
     error: categoryError,
-  } = useGetBrandsQuery("" || 1);
+  } = useGetBrandsQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -43,53 +43,14 @@ export default function CategorySection() {
     return <p>No categories available</p>;
   }
   return (
-    <div className="container my-10">
-      <Tabs defaultValue={categories[0]?.name}>
-        <TabsList className="grid grid-flow-row gap-4">
-          {categories.map((category) => (
-            <TabsTrigger key={category.id} value={category.name}>
-              {category.name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        <div className="my-2">
-          {categories.map((category) => (
-            <TabsContent
-              key={category.id}
-              value={category.name}
-              className="grid grid-flow-row gap-5">
-              {productsByCategory[category.name]?.length > 0 ? (
-                productsByCategory[category.name].map((product) => (
-                  <Card key={product.id} className="mb-2">
-                    <CardHeader>
-                      <CardTitle>{product.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex justify-between">
-                      <div className="flex gap-2 w-full">
-                        <Image
-                          loading="lazy"
-                          className="h-14 w-14"
-                          src={`data:image/jpeg;base64,${product.images.main}`}
-                          alt={product.name}
-                          height={100}
-                          width={100}
-                        />
-                      </div>
-                      <p className="">{product.description}</p>
-                      <p className="flex">Price: {product.price}</p>
-                      <p className="">Discount: {product.discount}</p>
-                      <p className="">Quantity: {product.quantity}</p>
-                      <p className="">Brand: {product.brand}</p>
-                    </CardContent>
-                  </Card>
-                ))
-              ) : (
-                <p>No products found in this category.</p>
-              )}
-            </TabsContent>
-          ))}
-        </div>
-      </Tabs>
-    </div>
+    <Tabs defaultValue={categories[0]?.name}>
+      <TabsList className="grid grid-flow-row w-60">
+        {categories.map((category) => (
+          <TabsTrigger key={category.id} value={category.name}>
+            {category.name}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   );
 }

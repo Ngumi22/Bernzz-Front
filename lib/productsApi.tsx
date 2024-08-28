@@ -7,33 +7,71 @@ export const productsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
   keepUnusedDataFor: 30,
   endpoints: (builder) => ({
-    useGetAllProducts: builder.query<Product, string>({
-      query: () => `products`, // get all products
-      keepUnusedDataFor: 5,
-    }),
+    getAllProductsByFilter: builder.query<
+      Product[],
+      {
+        brand?: string;
+        category?: string;
+        minPrice?: number;
+        maxPrice?: number;
+        minDiscount?: number;
+        maxDiscount?: number;
+        status?: string;
+        name?: string;
+        currentPage: number;
+      }
+    >({
+      query: (filters) => {
+        const {
+          brand,
+          category,
+          minPrice,
+          maxPrice,
+          minDiscount,
+          maxDiscount,
+          status,
+          name,
+          currentPage,
+        } = filters;
 
-    getAllProductsByFilter: builder.query<Product[], { brand: string }>({
-      query: ({ brand }) => `products?brand=${brand}`, // Fetch products by brand
+        // Construct query parameters
+        const queryParams = new URLSearchParams();
+        if (brand) queryParams.append("brand", brand);
+        if (category) queryParams.append("category", category);
+        if (minPrice !== undefined)
+          queryParams.append("minPrice", minPrice.toString());
+        if (maxPrice !== undefined)
+          queryParams.append("maxPrice", maxPrice.toString());
+        if (minDiscount !== undefined)
+          queryParams.append("minDiscount", minDiscount.toString());
+        if (maxDiscount !== undefined)
+          queryParams.append("maxDiscount", maxDiscount.toString());
+
+        if (name) queryParams.append("name", name);
+        queryParams.append("page", currentPage.toString());
+
+        return `products?${queryParams.toString()}`;
+      },
       keepUnusedDataFor: 5,
     }),
 
     getProductById: builder.query<Product, string>({
-      query: (id) => `products/${id}`, // get a product by id
+      query: (id) => `products/${id}`, // Get a product by ID
       keepUnusedDataFor: 5,
     }),
 
     getAllCategories: builder.query<Category[], void>({
-      query: () => `categories`, // get all categories without products
+      query: () => `categories`, // Get all categories without products
       keepUnusedDataFor: 5,
     }),
 
-    getProductsByCategory: builder.query<Category[], void>({
-      query: (name) => `products?category=${name}`, // get products by category
+    getBrands: builder.query<string[], void>({
+      query: () => `products/brands`, // Get unique brands
       keepUnusedDataFor: 5,
     }),
 
-    getProductByDiscount: builder.query<Product[], void>({
-      query: (discount) => `products?minDiscount=${discount}`, // get products by category
+    getTags: builder.query<string[], void>({
+      query: () => `products/tags`, // Get unique tags
       keepUnusedDataFor: 5,
     }),
 
@@ -46,8 +84,12 @@ export const productsApi = createApi({
       keepUnusedDataFor: 5,
     }),
 
-    getBrands: builder.query<any, number>({
-      query: () => `products?brands=all`, // get unique brands with their associated products
+    // New endpoint for fetching all products grouped by brand
+    getProductsByBrands: builder.query<
+      { brand: string; products: Product[] }[],
+      void
+    >({
+      query: () => `products?brands=all`, // Query for all brands
       keepUnusedDataFor: 5,
     }),
   }),
@@ -58,6 +100,7 @@ export const {
   useGetProductByIdQuery,
   useGetAllCategoriesQuery,
   useGetBrandsQuery,
-  useGetProductsByCategoryQuery,
+  useGetTagsQuery,
   useGetProductsByDiscountQuery,
+  useGetProductsByBrandsQuery, // Export the new hook
 } = productsApi;

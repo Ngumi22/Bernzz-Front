@@ -11,6 +11,7 @@ export interface Product {
   quantity: number;
   createdAt: string;
   updatedAt: string;
+  tags: string[];
   images: {
     main: string | null;
     thumbnails: string[];

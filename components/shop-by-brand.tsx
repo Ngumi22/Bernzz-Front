@@ -1,75 +1,58 @@
 "use client";
-
-// components/ShopByBrandTabs.tsx
-import { useEffect, useState } from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import React, { useState } from "react";
+import { useGetProductsByBrandsQuery } from "@/lib/productsApi";
 import Card from "@/components/card";
-import {
-  useGetBrandsQuery,
-  useGetAllProductsByFilterQuery,
-} from "@/lib/productsApi";
-import { Product } from "@/lib/definitions";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"; // Adjust the import based on your UI library or custom tabs component
 
-const ShopByBrand = () => {
+const ProductsByBrands = () => {
   const {
-    data: brands,
-    isLoading: isLoadingBrands,
-    isError: isErrorBrands,
-  } = useGetBrandsQuery(0);
-  const [activeBrand, setActiveBrand] = useState<string | null>("HP");
+    data: brandsWithProducts,
+    isError,
+    isLoading,
+  } = useGetProductsByBrandsQuery();
+  const [activeBrand, setActiveBrand] = useState<string | null>(null);
 
-  const {
-    data: products,
-    isLoading: isLoadingProducts,
-    isError: isErrorProducts,
-  } = useGetAllProductsByFilterQuery({
-    brand: activeBrand || "",
-  });
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading products.</div>;
 
-  useEffect(() => {
-    if (brands && brands.length > 0) {
-      setActiveBrand(brands[0]?.brand);
-    }
-  }, [brands]);
-
-  if (isLoadingBrands || isLoadingProducts) return <div>Loading...</div>;
-  if (isErrorBrands || isErrorProducts) return <div>Error fetching data.</div>;
+  // Set the default active brand to the first one if not already set
+  if (brandsWithProducts && !activeBrand) {
+    setActiveBrand(brandsWithProducts[0].brand);
+  }
 
   return (
     <section className="container">
-      <h2 className="text-2xl font-bold uppercase mb-5">shop by brand</h2>
+      <h2 className="text-2xl font-bold uppercase mb-5">Products by Brand</h2>
       <Tabs defaultValue={activeBrand || ""} className="w-full">
         <TabsList className="flex space-x-4">
-          {brands.map((brandInfo: any, index: number) => (
+          {brandsWithProducts?.map((brandGroup) => (
             <TabsTrigger
-              key={index}
-              value={brandInfo.brand}
-              onClick={() => setActiveBrand(brandInfo.brand)}>
-              {brandInfo.brand}
+              key={brandGroup.brand}
+              value={brandGroup.brand}
+              onClick={() => setActiveBrand(brandGroup.brand)}>
+              {brandGroup.brand}
             </TabsTrigger>
           ))}
         </TabsList>
 
-        {brands.map((brandInfo: any, index: number) => (
-          <TabsContent key={index} value={brandInfo.brand}>
-            <div className="grid grid-cols-1 md:grid-flow-col content-start space-x-2 overflow-x-scroll">
-              {products &&
-                products
-                  .filter(
-                    (product: Product) => product.brand === brandInfo.brand
-                  )
-                  .map((product: Product) => (
-                    <Card
-                      key={product.id}
-                      product={product}
-                      showDescription={true}
-                      showPrice={true}
-                      showActions={true}
-                      showCategory={true}
-                      showBrand={true}
-                      showDiscount={true}
-                    />
-                  ))}
+        {brandsWithProducts?.map((brandGroup) => (
+          <TabsContent
+            key={brandGroup.brand}
+            value={brandGroup.brand}
+            className={activeBrand === brandGroup.brand ? "block" : "hidden"}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+              {brandGroup.products.map((product) => (
+                <Card
+                  key={product.id}
+                  product={product}
+                  showDescription={true}
+                  showPrice={true}
+                  showActions={true}
+                  showCategory={true}
+                  showBrand={true}
+                  showDiscount={true}
+                />
+              ))}
             </div>
           </TabsContent>
         ))}
@@ -78,4 +61,4 @@ const ShopByBrand = () => {
   );
 };
 
-export default ShopByBrand;
+export default ProductsByBrands;

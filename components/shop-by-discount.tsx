@@ -18,19 +18,19 @@ export default function DiscountedProducts() {
 
   return (
     <section className="container">
-      <h2 className="text-2xl font-bold uppercase mb-5">shop by discount</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+      <h2 className="text-2xl font-bold uppercase mb-5">Shop by Discount</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {products &&
           products.map((product) => (
             <Card
               key={product.id}
               product={product}
-              showDescription={true}
-              showPrice={true}
-              showActions={true}
-              showCategory={true}
-              showBrand={true}
-              showDiscount={true}
+              showDescription
+              showPrice
+              showActions
+              showCategory
+              showBrand
+              showDiscount
             />
           ))}
       </div>

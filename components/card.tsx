@@ -14,6 +14,7 @@ interface CardProps {
   showCategory?: boolean;
   showBrand?: boolean;
   showDiscount?: boolean;
+  showTags?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -24,6 +25,7 @@ const Card: React.FC<CardProps> = ({
   showCategory = false,
   showBrand = false,
   showDiscount = false,
+  showTags = false,
 }) => {
   const dispatch = useDispatch();
 
@@ -97,11 +99,22 @@ const Card: React.FC<CardProps> = ({
               Brand: {product.brand}
             </div>
           )}
+
           {showDiscount && product.discount > 0 && (
             <div className="text-red-600 text-xs dark:text-red-400">
               Discount: {product.discount}%
             </div>
           )}
+        </div>
+
+        <div className="flex flex-wrap gap-2 mt-2">
+          {product.tags.map((tag) => (
+            <div
+              key={tag}
+              className="bg-gray-200 px-2 py-1 rounded-md flex items-center">
+              <span>{tag[0]}</span> {/* Display tag name */}
+            </div>
+          ))}
         </div>
       </div>
 

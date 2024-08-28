@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Montserrat", Helvetica, arial, sans-serif;
-  font-weight: 100;
-}
-
 nav {
   background-color: #21476b;
 }
