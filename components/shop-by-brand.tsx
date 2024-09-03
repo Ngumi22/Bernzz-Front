@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useGetProductsByBrandsQuery } from "@/lib/productsApi";
-import Card from "@/components/card";
+import ProductCard from "@/components/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"; // Adjust the import based on your UI library or custom tabs component
 
 const ProductsByBrands = () => {
@@ -40,19 +40,21 @@ const ProductsByBrands = () => {
             key={brandGroup.brand}
             value={brandGroup.brand}
             className={activeBrand === brandGroup.brand ? "block" : "hidden"}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-              {brandGroup.products.map((product) => (
-                <Card
-                  key={product.id}
-                  product={product}
-                  showDescription={true}
-                  showPrice={true}
-                  showActions={true}
-                  showCategory={true}
-                  showBrand={true}
-                  showDiscount={true}
-                />
-              ))}
+            <div className="mx-auto max-w-2xl p-4 sm:p-10 lg:max-w-7xl lg:px-8">
+              <div className="grid grid-cols-1 gap-y-5 gap-x-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                {brandGroup.products.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    showDescription={true}
+                    showPrice={true}
+                    showActions={true}
+                    showCategory={true}
+                    showBrand={true}
+                    showDiscount={true}
+                  />
+                ))}
+              </div>
             </div>
           </TabsContent>
         ))}
