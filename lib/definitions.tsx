@@ -38,8 +38,7 @@ export interface Subcategory {
   href: string;
 }
 
-export interface CartItem {
-  cartQuantity: number;
+export interface BaseItem {
   id: number;
   sku: string;
   name: string;
@@ -58,24 +57,12 @@ export interface CartItem {
   };
 }
 
-export interface wishItem {
+export interface CartItem extends BaseItem {
+  cartQuantity: number;
+}
+
+export interface wishItem extends BaseItem {
   wishQuantity: number;
-  id: number;
-  sku: string;
-  name: string;
-  description: string;
-  category: string;
-  status: string;
-  brand: string;
-  price: number;
-  discount: number;
-  quantity: number;
-  createdAt: string;
-  updatedAt: string;
-  images: {
-    main: string | null;
-    thumbnails: string[];
-  };
 }
 
 export interface CartState {

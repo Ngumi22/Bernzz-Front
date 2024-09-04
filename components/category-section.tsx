@@ -11,21 +11,27 @@ export default function CategorySection() {
   const { data: allCategories, error, isLoading } = useGetAllCategoriesQuery();
 
   return (
-    <section className="my-8">
-      <h2 className="font-semibold text-2xl uppercase">Shop By Category</h2>
+    <section className="md:container p-2">
+      <h2 className="text-2xl font-semibold uppercase my-4">
+        Shop By Category
+      </h2>
       {isLoading ? (
-        <SkeletonCard />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+          {[...Array(6)].map((_, index) => (
+            <div
+              key={index}
+              className="p-2 md:p-5 lg:p-11 lg:basis-64 flex-grow text-center shadow-lg bg-gray-400 animate-pulse"></div>
+          ))}
+        </div>
       ) : error ? (
         <span className="sr-only">No Categories Found</span>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
           {allCategories?.map((category: Category) => (
             <li
               key={category.id}
               className="p-1 md:p-5 lg:p-8 lg:basis-64 flex-grow text-center shadow-lg bg-gray-400">
-              <Link href={`/shop-by-category/${category.name}`}>
-                {category.name}
-              </Link>
+              <Link href={`/products/${category.name}`}>{category.name}</Link>
             </li>
           ))}
         </ul>

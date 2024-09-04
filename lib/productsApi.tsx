@@ -19,6 +19,7 @@ export const productsApi = createApi({
         status?: string;
         name?: string;
         currentPage: number;
+        id?: string;
       }
     >({
       query: (filters) => {
@@ -31,6 +32,7 @@ export const productsApi = createApi({
           maxDiscount,
           status,
           name,
+          id,
           currentPage,
         } = filters;
 
@@ -55,7 +57,7 @@ export const productsApi = createApi({
       keepUnusedDataFor: 5,
     }),
 
-    getProductById: builder.query<Product, string>({
+    getProductById: builder.query<Product, number>({
       query: (id) => `products/${id}`, // Get a product by ID
       keepUnusedDataFor: 5,
     }),
