@@ -6,6 +6,7 @@ import Footer from "@/components/Navigation/footer";
 import { Navbar } from "@/components/Navigation/Navbar";
 import TopNav from "@/components/Navigation/TopNav";
 import MegaMenu from "@/components/Mega-Menu/mega-menu";
+import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"], weight: "500" });
 const mont = Montserrat({ subsets: ["latin"], weight: "500" });

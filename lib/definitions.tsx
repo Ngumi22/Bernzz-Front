@@ -55,6 +55,7 @@ export interface BaseItem {
     main: string | null;
     thumbnails: string[];
   };
+  tags: string[];
 }
 
 export interface CartItem extends BaseItem {

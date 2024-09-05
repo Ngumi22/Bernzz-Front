@@ -5,7 +5,7 @@ import { Category, Product } from "@/lib/definitions";
 export const productsApi = createApi({
   reducerPath: "productsApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
-  keepUnusedDataFor: 30,
+  keepUnusedDataFor: 30, // Adjust default caching time for the API
   endpoints: (builder) => ({
     getAllProductsByFilter: builder.query<
       Product[],
@@ -48,33 +48,47 @@ export const productsApi = createApi({
           queryParams.append("minDiscount", minDiscount.toString());
         if (maxDiscount !== undefined)
           queryParams.append("maxDiscount", maxDiscount.toString());
-
+        if (status) queryParams.append("status", status);
         if (name) queryParams.append("name", name);
         queryParams.append("page", currentPage.toString());
 
         return `products?${queryParams.toString()}`;
       },
       keepUnusedDataFor: 5,
+      transformResponse: (response: Product[], meta, arg) => {
+        // Example: Add extra transformation logic if needed
+        return response;
+      },
     }),
 
     getProductById: builder.query<Product, number>({
       query: (id) => `products/${id}`, // Get a product by ID
       keepUnusedDataFor: 5,
+      transformResponse: (response: Product) => response, // Add transformation if needed
     }),
 
     getAllCategories: builder.query<Category[], void>({
       query: () => `categories`, // Get all categories without products
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 60, // Cache for 60 seconds
     }),
 
     getBrands: builder.query<string[], void>({
       query: () => `products/brands`, // Get unique brands
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 60, // Cache for 60 seconds
     }),
 
     getTags: builder.query<string[], void>({
       query: () => `products/tags`, // Get unique tags
+      keepUnusedDataFor: 60, // Cache for 60 seconds
+    }),
+
+    getByTags: builder.query<Product[], { tag: string }>({
+      query: ({ tag }) => `products?tag=${encodeURIComponent(tag)}`,
       keepUnusedDataFor: 5,
+      transformResponse: (response: Product[], meta, arg) => {
+        // Optionally, transform the data received from the server
+        return response;
+      },
     }),
 
     getProductsByDiscount: builder.query<
@@ -86,23 +100,25 @@ export const productsApi = createApi({
       keepUnusedDataFor: 5,
     }),
 
-    // New endpoint for fetching all products grouped by brand
+    // Fetch all products grouped by brand
     getProductsByBrands: builder.query<
       { brand: string; products: Product[] }[],
       void
     >({
       query: () => `products?brands=all`, // Query for all brands
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 60, // Cache for 60 seconds
     }),
   }),
 });
 
+// Export hooks for components to use
 export const {
   useGetAllProductsByFilterQuery,
   useGetProductByIdQuery,
   useGetAllCategoriesQuery,
   useGetBrandsQuery,
   useGetTagsQuery,
+  useGetByTagsQuery,
   useGetProductsByDiscountQuery,
-  useGetProductsByBrandsQuery, // Export the new hook
+  useGetProductsByBrandsQuery,
 } = productsApi;

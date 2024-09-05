@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 
 import { addToCart } from "@/lib/slices/cartSlice";
 import Image from "next/image";
-import { cn, formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { addToWish } from "@/lib/slices/wishSlice";
-import { Product } from "@/lib/definitions";
 import { useDispatch } from "react-redux";
-import { wishItem, CartItem } from "@/lib/definitions";
+import Link from "next/link";
 
 export default function ProductsPage({ params }: { params: { id: number } }) {
   const id = params.id;
@@ -16,6 +15,7 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
   const { data: product, isError, isLoading } = useGetProductByIdQuery(id);
 
   const [mainImage, setMainImage] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     if (product) {
@@ -26,21 +26,32 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    const cartItem = {
-      ...product,
-      cartQuantity: 1,
-    };
-    // dispatch(addToCart(cartItem));
+    if (product) {
+      const cartItem = {
+        ...product,
+        cartQuantity: 1,
+      };
+      dispatch(addToCart(cartItem));
+    }
   };
 
   const handleAddToWish = () => {
-    const wishItem = {
-      ...product,
-      wishQuantity: 1,
-    };
-    // dispatch(addToWish(wishItem));
+    if (product) {
+      const wishItem = {
+        ...product,
+        wishQuantity: 1,
+      };
+      dispatch(addToWish(wishItem));
+    }
   };
 
+  const handleIncrease = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleDecrease = () => {
+    setQuantity(quantity - 1);
+  };
   const handleCompare = () => {
     // Implement compare functionality
   };
@@ -50,7 +61,14 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex space-x-2 justify-center items-center bg-white h-screen dark:invert">
+        <span className="sr-only">Loading...</span>
+        <div className="h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+        <div className="h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+        <div className="h-8 w-8 bg-black rounded-full animate-bounce"></div>
+      </div>
+    );
   }
 
   if (isError) {
@@ -182,6 +200,20 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
             SKU: <span className="font-semibold">{product.sku}</span>
           </p>
 
+          <p className="font-bold">
+            Tags:{" "}
+            <span className="font-semibold">
+              {product.tags.map((tag, index) => (
+                <Link
+                  key={index}
+                  href={`/product-tags/${encodeURIComponent(tag)}`} // Ensure the tag is URL-safe
+                  className="mr-2 underline text-blue-500">
+                  {tag}
+                </Link>
+              ))}
+            </span>
+          </p>
+
           <div className="flex items-center text-center gap-x-2 text-2xl font-bold text-violet-900">
             <p className="text-sm text-gray-400 line-through my-auto text-center">
               {formatCurrency(product.price)}
@@ -236,13 +268,17 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
             <p className="pb-2 text-xs text-gray-500">Quantity</p>
 
             <div className="flex">
-              <button className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
+              <button
+                onClick={handleDecrease}
+                className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
                 &minus;
               </button>
               <div className="flex h-8 w-8 cursor-text items-center justify-center border-t border-b active:ring-gray-500">
-                1
+                {quantity}
               </div>
-              <button className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
+              <button
+                onClick={handleIncrease}
+                className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500">
                 &#43;
               </button>
             </div>
