@@ -1,58 +1,41 @@
-"use client";
+"use client"; // This ensures that this is a Client Component
+
 import React from "react";
-import { useSearchParams } from "next/navigation";
-import { Product } from "@/lib/definitions"; // Ensure this matches your type
 import { useGetByTagsQuery } from "@/lib/productsApi";
+import ProductCard from "@/components/card";
 
-const TagPage = () => {
-  const searchParams = useSearchParams();
-  const tag = searchParams.get("tag");
-
-  // Use the tag to fetch products
+const ProductPage = ({ params }: { params: { tags: string } }) => {
+  // Fetch products based on the tag using Redux hook
   const {
-    data: products,
+    data: products = [],
     isLoading,
     error,
-  } = useGetByTagsQuery({ tag: tag as string });
+  } = useGetByTagsQuery({
+    tag: params.tags,
+  });
 
-  console.log(products);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching products</div>;
-
-  // Inline ProductList component
-  const ProductList = ({ products }: { products: Product[] }) => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {products.map((product) => (
-        <div key={product.id} className="border rounded-lg p-4">
-          <img
-            src={product.images.main || "/placeholder.jpg"}
-            alt={product.name}
-            className="w-full h-32 object-cover"
-          />
-          <h2 className="text-xl font-semibold mt-2">{product.name}</h2>
-          <p className="text-gray-500">${product.price.toFixed(2)}</p>
-          <p className="text-sm mt-1">{product.description}</p>
-          <a
-            href={`/products/${product.id}`}
-            className="text-blue-500 underline mt-2 block">
-            View Details
-          </a>
-        </div>
-      ))}
-    </div>
-  );
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading products</p>;
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold">Products with Tag: {tag}</h1>
-      {products && products.length > 0 ? (
-        <ProductList products={products} />
-      ) : (
-        <p>No products found with the tag "{tag}".</p>
-      )}
-    </div>
+    <section className="space-y-4">
+      <div className="bg-gray-200 p-4">
+        <h1 className="text-4xl mb-4">{params.tags}</h1>
+        <h1 className="text-sm">Home Products Tagged "{params.tags}"</h1>
+      </div>
+      <div className="container">
+        {products.length > 0 ? (
+          <div className="grid grid-cols-1 gap-y-5 gap-x-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-x-5">
+            {products.map((product) => (
+              <ProductCard product={product} showActions />
+            ))}
+          </div>
+        ) : (
+          <p>No products found with the tag "{params.tags}".</p>
+        )}
+      </div>
+    </section>
   );
 };
 
-export default TagPage;
+export default ProductPage;

@@ -8,9 +8,11 @@ import { formatCurrency } from "@/lib/utils";
 import { addToWish } from "@/lib/slices/wishSlice";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ProductsPage({ params }: { params: { id: number } }) {
   const id = params.id;
+  const router = useRouter();
 
   const { data: product, isError, isLoading } = useGetProductByIdQuery(id);
 
@@ -83,6 +85,10 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
   const discount = Number(product.discount);
 
   const discountedPrice = discount > 0 ? price * (1 - discount / 100) : price;
+
+  const handleTagClick = (tag: string) => {
+    router.push(`/product-tags/${encodeURIComponent(tag)}`);
+  };
 
   return (
     <section>
@@ -204,12 +210,12 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
             Tags:{" "}
             <span className="font-semibold">
               {product.tags.map((tag, index) => (
-                <Link
+                <button
                   key={index}
-                  href={`/product-tags/${encodeURIComponent(tag)}`} // Ensure the tag is URL-safe
-                  className="mr-2 underline text-blue-500">
+                  onClick={() => handleTagClick(tag)} // Update URL on tag click
+                  className="mr-2 underline">
                   {tag}
-                </Link>
+                </button>
               ))}
             </span>
           </p>
@@ -395,8 +401,8 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
           <Image
             height={100}
             width={100}
-            className=""
-            src="/assets/images/product-chair.png"
+            className="h-auto w-full"
+            src="/omen.png"
             alt="sofa image"
           />
 
@@ -484,8 +490,8 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
           <Image
             height={100}
             width={100}
-            className=""
-            src="/assets/images/product-sofa.png"
+            className="h-auto w-full"
+            src="/omen.png"
             alt="sofa image"
           />
 
@@ -573,8 +579,8 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
           <Image
             height={100}
             width={100}
-            className=""
-            src="/assets/images/kitchen.png"
+            className="h-auto w-full"
+            src="/omen.png"
             alt="sofa image"
           />
 
@@ -662,8 +668,8 @@ export default function ProductsPage({ params }: { params: { id: number } }) {
           <Image
             height={100}
             width={100}
-            className=""
-            src="/assets/images/livingRoom.png"
+            className="h-auto w-full"
+            src="/omen.png"
             alt="sofa image"
           />
 

@@ -20,6 +20,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Trash2 } from "lucide-react";
 export default function Cart() {
   const cart = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
@@ -71,12 +72,12 @@ export default function Cart() {
           </div>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[20rem] mr-5">
+      <DropdownMenuContent className="w-96 mr-5">
         <DropdownMenuLabel className="text-center font-semibold text-xl">
           Shopping Bag
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <ScrollArea className="h-[25rem] rounded-md p-4">
+        <ScrollArea className="h-96 rounded-md p-4">
           {cart.cartItems.length === 0 ? (
             <div className="text-center">
               <p className="font-semibold my-4">Cart is empty</p>
@@ -100,35 +101,48 @@ export default function Cart() {
             <div>
               {cart.cartItems?.map((cartItem: any) => (
                 <div
-                  className="flex justify-between items-center my-2 border-b py-2"
+                  className="flex justify-between items-center my-2 border-b py-2 font-semibold"
                   key={cartItem.id}>
-                  <p>{cartItem.name}</p>
-                  <div>
-                    <Image
-                      className="h-20"
-                      src={`data:image/jpeg;base64,${cartItem.images.main}`}
-                      alt={cartItem.name}
-                      height={100}
-                      width={100}
-                    />
+                  <Image
+                    className="h-auto"
+                    src={`data:image/jpeg;base64,${cartItem.images.main}`}
+                    alt={cartItem.name}
+                    height={80}
+                    width={80}
+                  />
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <p>{cartItem.name}</p>
+                      <p className="">Ksh {cartItem.price}</p>
+                    </div>
+                    <div className="grid grid-flow-col gap-2 py-2 px-3 border border-black rounded">
+                      <button onClick={() => handleDecreaseCart(cartItem)}>
+                        -
+                      </button>
+                      <p className="text-center">{cartItem.cartQuantity}</p>
+                      <button onClick={() => handleIncreaseCart(cartItem)}>
+                        +
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center gap-3">
-                    <button onClick={() => handleDecreaseCart(cartItem)}>
-                      -
+                  <div className="grid space-y-8">
+                    <p className="place-self-end">
+                      Ksh {cartItem.price * cartItem.cartQuantity}
+                    </p>
+                    <button
+                      className="text-red-700 place-self-end relative group/item"
+                      onClick={() => handleRemoveFromCart(cartItem)}>
+                      <Trash2
+                        size={16}
+                        strokeWidth={2}
+                        className="stroke-1 stroke-black roup-hover/item:stroke-red"
+                      />
+
+                      <p className="absolute top-0 bottom-0 right-5 font-normal invisible group-hover/item:visible">
+                        Remove
+                      </p>
                     </button>
-                    <div>{cartItem.cartQuantity}</div>
-                    <button onClick={() => handleIncreaseCart(cartItem)}>
-                      +
-                    </button>
                   </div>
-                  <div className="">
-                    ${cartItem.price * cartItem.cartQuantity}
-                  </div>
-                  <button
-                    className="text-red-700"
-                    onClick={() => handleRemoveFromCart(cartItem)}>
-                    X
-                  </button>
                 </div>
               ))}
 
@@ -138,19 +152,21 @@ export default function Cart() {
                   onClick={() => handleClearCart()}>
                   Clear Cart
                 </button>
-                <div className="subtotal flex justify-between items-center gap-4">
-                  <p className="underline underline-offset-1 font-semibold">
-                    Subtotal
-                  </p>
-                  <p className="font-semibold">Ksh {cart.cartTotalAmount}</p>
+                <div className="subtotal flex justify-between items-center gap-x-4 my-4">
+                  <p className="font-bold">Subtotal:</p>
+                  <p className="font-bold">Ksh {cart.cartTotalAmount}.00</p>
                 </div>
               </div>
-              <div className="flex flex-col justify-center items-center text-sm my-3 text-center">
-                <p className="">Taxes and shipping calculated at checkout</p>
+              <div className="flex justify-between items-center text-sm text-center my-2">
                 <Link
-                  href="/checkout"
-                  className="px-8 py-2 bg-blue-700 rounded-md w-48 my-2  text-white">
-                  Continue to Checkout
+                  href="/"
+                  className="px-4 py-2 border border-blue-700 rounded  text-blue-700">
+                  Continue Shopping
+                </Link>
+                <Link
+                  href="/Checkout"
+                  className="px-4 py-2 bg-blue-700 rounded text-white">
+                  Proceed to Checkout
                 </Link>
               </div>
             </div>
