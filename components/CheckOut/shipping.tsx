@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import CartItems from "./CartItems";
 import OrderItems from "./Order";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 interface ShippingProps {
   nextStep: () => void;
@@ -14,8 +15,8 @@ export default function Shipping() {
   const [address, setAddress] = useState("");
 
   return (
-    <Card className="grid grid-cols-1 md:grid-cols-4 gap-2 p-4">
-      <Card className="col-span-3 p-8">
+    <Card className="grid grid-cols-1 md:grid-cols-3 gap-2 p-4">
+      <Card className="col-span-2 p-8">
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
           Checkout
         </h1>
@@ -163,22 +164,9 @@ export default function Shipping() {
           />
         </div>
       </Card>
-      <Card className="col-span-1 h-fit">
-        <CardHeader>
-          <CardTitle>Your Order</CardTitle>
-        </CardHeader>
-
-        <CardContent className="space-y-8">
-          <OrderItems />
-          <div className="mx-auto">
-            <Link
-              href="/"
-              className="px-4 py-2 border border-black rounded  text-black">
-              Place Order
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="col-span-1">
+        <OrderItems />
+      </div>
     </Card>
   );
 }

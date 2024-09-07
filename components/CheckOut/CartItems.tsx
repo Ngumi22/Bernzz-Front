@@ -15,8 +15,13 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Button } from "../ui/button";
 
-export default function CartItems() {
+export default function CartItems({
+  onProceedToCheckout,
+}: {
+  onProceedToCheckout: () => void;
+}) {
   const [mounted, setMounted] = useState(false);
   const cart = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
@@ -171,11 +176,11 @@ export default function CartItems() {
             <p className="font-bold uppercase">Ksh {cart.cartTotalAmount}.00</p>
           </div>
           <div>
-            <Link
-              href="/Checkout"
+            <Button
+              onClick={onProceedToCheckout}
               className="px-5 py-2 bg-black rounded text-white">
               Proceed to Checkout
-            </Link>
+            </Button>
           </div>
         </CardContent>
       </Card>

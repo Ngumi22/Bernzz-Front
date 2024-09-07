@@ -9,6 +9,7 @@ import DiscountedProducts from "@/components/shop-by-discount";
 export default function Home() {
   return (
     <main className="">
+      <ToastContainer />
       <Hero />
       {/* <Week /> */}
       <CategorySection />

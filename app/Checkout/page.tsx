@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import CartItems from "@/components/CheckOut/CartItems";
 import Shipping from "@/components/CheckOut/shipping";
 import { Button } from "@/components/ui/button";
@@ -16,42 +16,75 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Checkout() {
+  const [activeTab, setActiveTab] = useState("cart");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
+
+  const handleTabChange = (tabValue: string) => {
+    if (tabValue === "confirmation" && (!agreedToTerms || !orderConfirmed)) {
+      // Do nothing if terms are not agreed or order not confirmed
+      return;
+    }
+    setActiveTab(tabValue);
+  };
+
+  const handleOrderConfirmation = () => {
+    setOrderConfirmed(true);
+    setActiveTab("confirmation");
+  };
+
   return (
-    <Tabs defaultValue="cart" className="container my-4">
+    <Tabs
+      value={activeTab}
+      onValueChange={handleTabChange}
+      className="container my-4">
       <TabsList className="grid w-full grid-cols-3 gap-x-8 text-center">
         <TabsTrigger value="cart">Your Cart</TabsTrigger>
         <TabsTrigger value="checkout">Shipping and Checkout</TabsTrigger>
-        <TabsTrigger value="confirmation">Confirmation</TabsTrigger>
+        <TabsTrigger
+          value="confirmation"
+          disabled={!orderConfirmed || !agreedToTerms}>
+          Confirmation
+        </TabsTrigger>
       </TabsList>
+
       <TabsContent value="cart">
-        <CartItems />
+        <CartItems onProceedToCheckout={() => setActiveTab("checkout")} />
       </TabsContent>
+
       <TabsContent value="checkout">
         <Card>
           <Shipping />
+          <div className="mt-4">
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="agree-terms"
+                checked={agreedToTerms}
+                onChange={(e) => setAgreedToTerms(e.target.checked)}
+              />
+              <Label htmlFor="agree-terms">
+                I agree to the terms and conditions
+              </Label>
+            </div>
+            <Button
+              onClick={handleOrderConfirmation}
+              disabled={!agreedToTerms}
+              className="mt-4">
+              Confirm Order
+            </Button>
+          </div>
         </Card>
       </TabsContent>
+
       <TabsContent value="confirmation">
         <Card>
           <CardHeader>
-            <CardTitle>Password</CardTitle>
+            <CardTitle>Confirmation</CardTitle>
             <CardDescription>
-              Change your password here. After saving, you'll be logged out.
+              Your order has been confirmed! Thank you for shopping with us.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="current">Current password</Label>
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="new">New password</Label>
-              <Input id="new" type="password" />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Save password</Button>
-          </CardFooter>
         </Card>
       </TabsContent>
     </Tabs>

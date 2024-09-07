@@ -7,7 +7,6 @@ import { Navbar } from "@/components/Navigation/Navbar";
 import TopNav from "@/components/Navigation/TopNav";
 import MegaMenu from "@/components/Mega-Menu/mega-menu";
 import Loading from "./loading";
-import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"], weight: "500" });
 const mont = Montserrat({ subsets: ["latin"], weight: "500" });
@@ -25,7 +24,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased leading-4">
-        <ToastContainer />
         <StoreProvider>
           <TopNav />
           <Navbar />
