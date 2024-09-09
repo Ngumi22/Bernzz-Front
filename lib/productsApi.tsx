@@ -7,6 +7,17 @@ export const productsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
   keepUnusedDataFor: 30, // Adjust default caching time for the API
   endpoints: (builder) => ({
+    getAllProductss: builder.query<{ data: Product[]; total: number }, number>({
+      query: (page) => `products?page=${page}`,
+      transformResponse: (response: { data: Product[]; total: number }) =>
+        response,
+    }),
+
+    getAllProducts: builder.query<Product[], { page: number }>({
+      query: ({ page }) => `products?page=${page}`,
+      transformResponse: (response: Product[]) => response,
+    }),
+
     getAllProductsByFilter: builder.query<
       Product[],
       {
@@ -55,7 +66,7 @@ export const productsApi = createApi({
         return `products?${queryParams.toString()}`;
       },
       keepUnusedDataFor: 5,
-      transformResponse: (response: Product[], meta, arg) => {
+      transformResponse: (response: Product[]) => {
         // Example: Add extra transformation logic if needed
         return response;
       },
@@ -113,6 +124,7 @@ export const productsApi = createApi({
 
 // Export hooks for components to use
 export const {
+  useGetAllProductsQuery,
   useGetAllProductsByFilterQuery,
   useGetProductByIdQuery,
   useGetAllCategoriesQuery,

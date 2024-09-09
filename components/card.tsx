@@ -81,8 +81,8 @@ const ProductCard: React.FC<CardProps> = ({
           <Image
             src={`data:image/jpeg;base64,${product.images.main}`}
             alt={product.name}
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             className={cn(
               "duration-700 ease-in-out group-hover:opacity-75 w-auto h-auto",
               isLoading
