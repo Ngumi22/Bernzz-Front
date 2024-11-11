@@ -4,7 +4,9 @@ import { Category, Product } from "@/lib/definitions";
 // Define a service using a base URL and expected endpoints
 export const productsApi = createApi({
   reducerPath: "productsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://dashboard-theta-gilt.vercel.app//api",
+  }),
   keepUnusedDataFor: 30, // Adjust default caching time for the API
   endpoints: (builder) => ({
     getAllProductss: builder.query<{ data: Product[]; total: number }, number>({
